@@ -21,17 +21,24 @@ namespace WriteToFileTxt {
         }
 
         private void WriteFile() {
-            string path = "W:\\8.Технический отдел\\Общая\\Группа C#\\Запись файлов txt\\text.txt";
-            if (File.Exists(path)) {
-                StreamWriter streamWriter = new StreamWriter(path, true);
+            string fileName = "text.txt";
+            string pathDirectory = "W:\\8.Технический отдел\\Общая\\Группа C#\\Запись файлов txt\\новая папка2\\";
+            string pathFile = pathDirectory + fileName;
+            //if (!Directory.Exists(pathDirectory)) {
+            //    Directory.CreateDirectory(pathDirectory);
+            //}
+           
+            try {
+                StreamWriter streamWriter = new StreamWriter(pathFile, true);
                 streamWriter.WriteLine(textBox1.Text);
                 streamWriter.Close();
             }
-            else {
-                File.Create(path).Close();
-                MessageBox.Show("Файл не найден и созданн новый.");
-                WriteFile();
+            catch (Exception ex) {
+                string exStr = ex.Source;
+                var action = ex.TargetSite;
             }
+
+           
         }
 
         private void btnRead_Click(object sender, EventArgs e) {
@@ -39,7 +46,7 @@ namespace WriteToFileTxt {
         }
 
         private void ReadFile() {
-            string path = "W:\\8.Технический отдел\\Общая\\Группа C#\\Запись файлов txt\\text.txt";
+            string path = "W:\\8.Технический отдел\\Общая\\Группа C#\\Запись файлов txt\\новая папка\\text.txt";
             if (File.Exists(path)) {
                 StreamReader streamReader = new StreamReader(path);
                 listBox1.Items.Clear();
