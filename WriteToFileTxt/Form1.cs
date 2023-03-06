@@ -24,21 +24,27 @@ namespace WriteToFileTxt {
             string fileName = "text.txt";
             string pathDirectory = "W:\\8.Технический отдел\\Общая\\Группа C#\\Запись файлов txt\\новая папка2\\";
             string pathFile = pathDirectory + fileName;
-            //if (!Directory.Exists(pathDirectory)) {
-            //    Directory.CreateDirectory(pathDirectory);
-            //}
-           
+            if (!Directory.Exists(pathDirectory)) {
+                Directory.CreateDirectory(pathDirectory);
+            }
+            
+            try {
+            }
+            catch {
+            }
+            finally { 
+            }
+
             try {
                 StreamWriter streamWriter = new StreamWriter(pathFile, true);
                 streamWriter.WriteLine(textBox1.Text);
                 streamWriter.Close();
             }
             catch (Exception ex) {
-                string exStr = ex.Source;
-                var action = ex.TargetSite;
+                string esStr = ex.Message;
+                string TraceStr = ex.StackTrace;
+                //throw new Exception("sdf", ex);
             }
-
-           
         }
 
         private void btnRead_Click(object sender, EventArgs e) {
@@ -46,15 +52,21 @@ namespace WriteToFileTxt {
         }
 
         private void ReadFile() {
-            string path = "W:\\8.Технический отдел\\Общая\\Группа C#\\Запись файлов txt\\новая папка\\text.txt";
+            string path = "W:\\8.Технический отдел\\Общая\\Группа C#\\Запись файлов txt\\новая папка2\\text.txt";
             if (File.Exists(path)) {
-                StreamReader streamReader = new StreamReader(path);
-                listBox1.Items.Clear();
-                while (!streamReader.EndOfStream) {
-                    string str = streamReader.ReadLine();
-                    listBox1.Items.Add(str);
+                try {
+                    StreamReader streamReader = new StreamReader(path);
+                    listBox1.Items.Clear();
+                    while (!streamReader.EndOfStream) {
+                        string str = streamReader.ReadLine();
+                        listBox1.Items.Add(str);
+                    }
+                    streamReader.Close();
                 }
-                streamReader.Close();
+                catch {
+                    MessageBox.Show("Не удалось зачитать файл " + path+ " !");
+                }
+               
             }
             else {
                 MessageBox.Show("Файл не найден!");
